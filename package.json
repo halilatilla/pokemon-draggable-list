@@ -1,5 +1,5 @@
 {
-  "name": "poke-tenlift",
+  "name": "pokemon-tenlift",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,7 +7,10 @@
     "axios": "^0.21.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3"
+    "react-draggable": "^4.4.4",
+    "react-query": "^3.23.2",
+    "react-scripts": "4.0.3",
+    "use-state-persist": "^0.3.0"
   },
   "scripts": {
     "start": "TAILWIND_MODE=watch craco start",
