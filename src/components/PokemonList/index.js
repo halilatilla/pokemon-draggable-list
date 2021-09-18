@@ -1,12 +1,45 @@
-import PokemonCard from '../PokemonCard'
+import { useStatePersist } from 'use-state-persist'
+import {
+  GridContextProvider,
+  GridDropZone,
+  GridItem,
+  swap
+} from 'react-grid-dnd'
 
-export default function PokemonList({ pokemons }) {
+import { usePokemonContext } from '../../stores'
+import PokemonCard from '../PokemonCard'
+import { useEffect } from 'react'
+
+export default function PokemonList() {
+  const { pokemons } = usePokemonContext()
+  const [sortedPokemons, setSortedPokemons] = useStatePersist(
+    'sortedPokemons',
+    []
+  )
+
+  function onChange(_, sourceIndex, targetIndex) {
+    const nextState = swap(sortedPokemons, sourceIndex, targetIndex)
+    setSortedPokemons(nextState)
+  }
+
+  useEffect(() => {
+    sortedPokemons.length === 0 && setSortedPokemons(pokemons)
+  }, [pokemons])
+
   return (
-    <div className="grid grid-cols-4 gap-8 place-items-center">
-      {pokemons.length > 0 &&
-        pokemons.map(({ data }) => (
-          <PokemonCard key={data?.id} pokemon={data} />
+    <GridContextProvider onChange={onChange}>
+      <GridDropZone
+        id="items"
+        boxesPerRow={4}
+        rowHeight={200}
+        className="mt-16 min-h-screen"
+      >
+        {sortedPokemons?.map(({ data }) => (
+          <GridItem key={data.id} className="flex-center">
+            <PokemonCard pokemon={data} />
+          </GridItem>
         ))}
-    </div>
+      </GridDropZone>
+    </GridContextProvider>
   )
 }
