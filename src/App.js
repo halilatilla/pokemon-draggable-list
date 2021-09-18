@@ -1,10 +1,14 @@
 import { useQuery, useQueries } from 'react-query'
 
+import { usePokemonContext } from './stores'
 import { PokeList } from './components'
 import { getPokemonByLimit, getPokemonByUrl } from './api'
+import { useEffect } from 'react'
 
 const App = () => {
-  const { isLoading, data } = useQuery(
+  const { setPokemons } = usePokemonContext()
+
+  const { data, isLoading } = useQuery(
     'pokemonUrl',
     () => getPokemonByLimit(16),
     { initialData: [] }
@@ -13,17 +17,21 @@ const App = () => {
   const pokemons = useQueries(
     data?.map(res => {
       return {
-        queryKey: ['user', res.url],
+        queryKey: ['pokemons', res.url],
         queryFn: () => getPokemonByUrl(res.url)
       }
     })
   )
 
+  const allSuccess = pokemons.every(num => num.isSuccess === true)
+
+  useEffect(() => {
+    allSuccess && setPokemons(pokemons)
+  }, [allSuccess])
+
   return (
-    <div className="flex-center min-h-screen">
-      <div className="container">
-        {isLoading ? 'Loading...' : <PokeList pokemons={pokemons} />}
-      </div>
+    <div className="container mx-auto">
+      {isLoading ? 'Loading...' : <PokeList />}
     </div>
   )
 }
