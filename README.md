@@ -2,6 +2,8 @@
 
 This project just about draggable lis.
 
+## [Demo](https://sharp-gates-f3635f.netlify.app/)
+
 This is a simple template for [Create React App](https://github.com/facebook/create-react-app).
 
 ## Getting Started
