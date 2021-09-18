@@ -1,6 +1,6 @@
 # Pokemon Draggable List
 
-This project just about draggable lis.
+A simple example for creating a draggable list
 
 ## [Demo](https://sharp-gates-f3635f.netlify.app/)
 <br />
