@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useStatePersist } from 'use-state-persist'
 import {
   GridContextProvider,
@@ -8,7 +9,6 @@ import {
 
 import { usePokemonContext } from '../../stores'
 import PokemonCard from '../PokemonCard'
-import { useEffect } from 'react'
 
 export default function PokemonList() {
   const { pokemons } = usePokemonContext()

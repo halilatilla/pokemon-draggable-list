@@ -1,9 +1,9 @@
+import { useEffect } from 'react'
 import { useQuery, useQueries } from 'react-query'
 
 import { usePokemonContext } from './stores'
 import { PokeList } from './components'
 import { getPokemonByLimit, getPokemonByUrl } from './api'
-import { useEffect } from 'react'
 
 const App = () => {
   const { setPokemons } = usePokemonContext()
